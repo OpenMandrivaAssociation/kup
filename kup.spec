@@ -4,7 +4,7 @@
 Summary:	A KDE-based frontend for the very excellent backup software
 Name:		kup
 Version:	0.4.2
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Archiving/Backup
 # Also https://github.com/spersson/Kup
