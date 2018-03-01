@@ -1,2 +1,4 @@
+removed_sources:
+  kup-0.4.2.tar.gz: cf4ecd18b00c6602ef10f8ecda132bc0c1744871
 sources:
-  "kup-0.4.2.tar.gz": cf4ecd18b00c6602ef10f8ecda132bc0c1744871
+  kup-0.7.1.tar.gz: 0c81e9494a145925eb5133eae27f70431af2a8a9

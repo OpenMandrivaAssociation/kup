@@ -3,15 +3,31 @@
 
 Summary:	A KDE-based frontend for the very excellent backup software
 Name:		kup
-Version:	0.4.2
-Release:	2
+Version:	0.7.1
+Release:	1
 License:	GPLv2+
 Group:		Archiving/Backup
 # Also https://github.com/spersson/Kup
 Url:		http://kde-apps.org/content/show.php/Kup+Backup+System?content=147465
 Source0:	https://github.com/spersson/Kup/archive/%{name}-%{version}.tar.gz
 BuildRequires:	cmake
-BuildRequires:	kdelibs4-devel
+BuildRequires:	cmake(Qt5Gui)
+BuildRequires:	cmake(Qt5Widgets)
+BuildRequires:	cmake(Qt5)
+BuildRequires:	cmake(KF5Solid)
+BuildRequires:	cmake(KF5KIO)
+BuildRequires:	cmake(KF5IdleTime)
+BuildRequires:	cmake(KF5I18n)
+BuildRequires:	cmake(KF5Notifications)
+BuildRequires:	cmake(KF5CoreAddons)
+BuildRequires:	cmake(KF5IconThemes)
+BuildRequires:	cmake(KF5DBusAddons)
+BuildRequires:	cmake(KF5Config)
+BuildRequires:	cmake(KF5Init)
+BuildRequires:	cmake(KF5JobWidgets)
+BuildRequires:	cmake(ECM)
+BuildRequires:	cmake(KF5Plasma)
+BuildRequires:	cmake(KF5)
 BuildRequires:	pkgconfig(openssl)
 Requires:	rsync
 Suggests:	bup
@@ -36,17 +52,21 @@ Schedules:
 
 %files -f %{name}.lang
 %doc LICENSE MAINTAINER README.md
-%dir %{_kde_appsdir}/kup-daemon/
-%{_kde_appsdir}/kup-daemon/*
-%{_kde_autostart}/kup-daemon.desktop
-%{_kde_bindir}/kup-daemon
-%{_kde_bindir}/kup-filedigger
-%{_kde_libdir}/kde4/kcm_kup.so
-%{_kde_libdir}/kde4/kio_bup.so
-%{_kde_libdir}/libkdeinit4_kup-daemon.so
-%{_kde_iconsdir}/hicolor/*/*/*
-%{_kde_services}/bup.protocol
-%{_kde_services}/kcm_kup.desktop
+%{_kde5_autostart}/kup-daemon.desktop
+%{_kde5_bindir}/kup-daemon
+%{_kde5_bindir}/kup-filedigger
+%_qt5_plugindir/kcm_kup.so
+%_qt5_plugindir/kio_bup.so
+%_qt5_plugindir/plasma/dataengine/plasma_engine_kup.so
+%{_kde5_libdir}/libkdeinit5_kup-daemon.so
+%{_kde5_iconsdir}/hicolor/*/*/*
+%{_kde5_services}/bup.protocol
+%{_kde5_services}/kcm_kup.desktop
+%{_kde5_services}/plasma*.desktop
+%{_kde5_datadir}/metainfo/org.kde.kupapplet.appdata.xml
+%{_kde5_datadir}/plasma/plasmoids/org.kde.kupapplet
+%{_datadir}/plasma/services/kupservice.operations
+%{_datadir}/knotifications5/kupdaemon.notifyrc
 
 #----------------------------------------------------------------------------
 
@@ -58,22 +78,22 @@ Group:		System/Libraries
 Shared library for %{name}.
 
 %files -n %{libgit24kup}
-%{_kde_libdir}/libgit24kup.so.%{major}*
+%{_kde5_libdir}/libgit24kup.so.%{major}*
 
 #----------------------------------------------------------------------------
 
 %prep
-%setup -q
+%setup -qn Kup-%{name}-%{version}
 chmod 0644 LICENSE
 
 %build
-%cmake_kde4
-%make
+%cmake_kde5
+%ninja
 
 %install
-%makeinstall_std -C build
+%ninja_install -C build
 
-rm -f %{buildroot}%{_kde_libdir}/libgit24kup.so
+rm -f %{buildroot}%{_kde5_libdir}/libgit24kup.so
 
 %find_lang %{name}
 
