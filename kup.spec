@@ -93,7 +93,7 @@ Shared library for %{name}.
 %install
 %ninja_install -C build
 
-rm -f %{buildroot}%{_kde5_libdir}/libgit24kup.so
+#rm -f %{buildroot}%{_kde5_libdir}/libgit24kup.so
 
 %find_lang %{name}
 
