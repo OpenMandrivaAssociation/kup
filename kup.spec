@@ -3,13 +3,13 @@
 
 Summary:	A KDE-based frontend for the very excellent backup software
 Name:		kup
-Version:	0.7.3
+Version:	0.8.0
 Release:	1
 License:	GPLv2+
 Group:		Archiving/Backup
 # Also https://github.com/spersson/Kup
-Url:		http://kde-apps.org/content/show.php/Kup+Backup+System?content=147465
-Source0:	https://github.com/spersson/Kup/archive/%{name}-%{version}.tar.gz
+Url:		https://invent.kde.org/system/kup
+Source0:	https://download.kde.org/stable/kup/%{name}-%{version}.tar.xz
 BuildRequires:	cmake
 BuildRequires:	cmake(Qt5Gui)
 BuildRequires:	cmake(Qt5Widgets)
@@ -83,7 +83,7 @@ Shared library for %{name}.
 #----------------------------------------------------------------------------
 
 %prep
-%setup -qn Kup-%{name}-%{version}
+%setup -qn %{name}-%{version}
 chmod 0644 LICENSE
 
 %build
