@@ -64,8 +64,9 @@ Schedules:
 %{_kde5_services}/bup.protocol
 %{_kde5_services}/kcm_kup.desktop
 %{_kde5_services}/plasma*.desktop
-%{_kde5_datadir}/metainfo/org.kde.kupapplet.appdata.xml
 %{_kde5_datadir}/plasma/plasmoids/org.kde.kupapplet
+%{_kde5_datadir}/metainfo/org.kde.kupapplet.appdata.xml
+%{_datadir}/metainfo/org.kde.kup.appdata.xml
 %{_datadir}/plasma/services/kupservice.operations
 %{_datadir}/knotifications5/kupdaemon.notifyrc
 
