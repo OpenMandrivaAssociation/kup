@@ -52,7 +52,7 @@ Schedules:
    for some hours since last backup).
 
 %files -f %{name}.lang
-%doc LICENSE MAINTAINER README.md
+%doc MAINTAINER README.md
 %{_kde5_autostart}/kup-daemon.desktop
 %{_kde5_bindir}/kup-daemon
 %{_kde5_bindir}/kup-filedigger
