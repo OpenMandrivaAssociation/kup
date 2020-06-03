@@ -79,7 +79,7 @@ Group:		System/Libraries
 Shared library for %{name}.
 
 %files -n %{libgit24kup}
-%{_kde5_libdir}/libgit24kup.so.%{major}*
+#{_kde5_libdir}/libgit24kup.so.%{major}*
 
 #----------------------------------------------------------------------------
 
