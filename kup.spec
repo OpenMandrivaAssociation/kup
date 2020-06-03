@@ -71,18 +71,6 @@ Schedules:
 
 #----------------------------------------------------------------------------
 
-%package -n %{libgit24kup}
-Summary:	Shared library for %{name}
-Group:		System/Libraries
-
-%description -n %{libgit24kup}
-Shared library for %{name}.
-
-%files -n %{libgit24kup}
-#{_kde5_libdir}/libgit24kup.so.%{major}*
-
-#----------------------------------------------------------------------------
-
 %prep
 %setup -qn %{name}-%{version}
 
@@ -92,8 +80,6 @@ Shared library for %{name}.
 
 %install
 %ninja_install -C build
-
-#rm -f %{buildroot}%{_kde5_libdir}/libgit24kup.so
 
 %find_lang %{name}
 
