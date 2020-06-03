@@ -84,7 +84,6 @@ Shared library for %{name}.
 
 %prep
 %setup -qn %{name}-%{version}
-chmod 0644 LICENSE
 
 %build
 %cmake_kde5
