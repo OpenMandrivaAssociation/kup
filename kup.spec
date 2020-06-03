@@ -28,6 +28,7 @@ BuildRequires:	cmake(KF5JobWidgets)
 BuildRequires:	cmake(ECM)
 BuildRequires:	cmake(KF5Plasma)
 BuildRequires:	cmake(KF5)
+BuildRequires: pkgconfig(libgit2)
 BuildRequires:	pkgconfig(openssl)
 Requires:	rsync
 Suggests:	bup
