@@ -3,13 +3,13 @@
 
 Summary:	A KDE-based frontend for the very excellent backup software
 Name:		kup
-Version:	0.7.3
+Version:	0.8.0
 Release:	1
 License:	GPLv2+
 Group:		Archiving/Backup
 # Also https://github.com/spersson/Kup
-Url:		http://kde-apps.org/content/show.php/Kup+Backup+System?content=147465
-Source0:	https://github.com/spersson/Kup/archive/%{name}-%{version}.tar.gz
+Url:		https://invent.kde.org/system/kup
+Source0:	https://download.kde.org/stable/kup/%{name}-%{version}.tar.xz
 BuildRequires:	cmake
 BuildRequires:	cmake(Qt5Gui)
 BuildRequires:	cmake(Qt5Widgets)
@@ -28,6 +28,7 @@ BuildRequires:	cmake(KF5JobWidgets)
 BuildRequires:	cmake(ECM)
 BuildRequires:	cmake(KF5Plasma)
 BuildRequires:	cmake(KF5)
+BuildRequires: pkgconfig(libgit2)
 BuildRequires:	pkgconfig(openssl)
 Requires:	rsync
 Suggests:	bup
@@ -51,7 +52,7 @@ Schedules:
    for some hours since last backup).
 
 %files -f %{name}.lang
-%doc LICENSE MAINTAINER README.md
+%doc MAINTAINER README.md
 %{_kde5_autostart}/kup-daemon.desktop
 %{_kde5_bindir}/kup-daemon
 %{_kde5_bindir}/kup-filedigger
@@ -63,28 +64,16 @@ Schedules:
 %{_kde5_services}/bup.protocol
 %{_kde5_services}/kcm_kup.desktop
 %{_kde5_services}/plasma*.desktop
-%{_kde5_datadir}/metainfo/org.kde.kupapplet.appdata.xml
 %{_kde5_datadir}/plasma/plasmoids/org.kde.kupapplet
+%{_kde5_datadir}/metainfo/org.kde.kupapplet.appdata.xml
+%{_datadir}/metainfo/org.kde.kup.appdata.xml
 %{_datadir}/plasma/services/kupservice.operations
 %{_datadir}/knotifications5/kupdaemon.notifyrc
 
 #----------------------------------------------------------------------------
 
-%package -n %{libgit24kup}
-Summary:	Shared library for %{name}
-Group:		System/Libraries
-
-%description -n %{libgit24kup}
-Shared library for %{name}.
-
-%files -n %{libgit24kup}
-%{_kde5_libdir}/libgit24kup.so.%{major}*
-
-#----------------------------------------------------------------------------
-
 %prep
-%setup -qn Kup-%{name}-%{version}
-chmod 0644 LICENSE
+%setup -qn %{name}-%{version}
 
 %build
 %cmake_kde5
@@ -92,8 +81,6 @@ chmod 0644 LICENSE
 
 %install
 %ninja_install -C build
-
-rm -f %{buildroot}%{_kde5_libdir}/libgit24kup.so
 
 %find_lang %{name}
 
