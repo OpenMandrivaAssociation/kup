@@ -56,6 +56,7 @@ Schedules:
 %{_kde5_autostart}/kup-daemon.desktop
 %{_kde5_bindir}/kup-daemon
 %{_kde5_bindir}/kup-filedigger
+%{_kde5_bindir}/kup-purger
 %_qt5_plugindir/kcm_kup.so
 %_qt5_plugindir/kio_bup.so
 %_qt5_plugindir/plasma/dataengine/plasma_engine_kup.so
@@ -67,8 +68,10 @@ Schedules:
 %{_kde5_datadir}/plasma/plasmoids/org.kde.kupapplet
 %{_kde5_datadir}/metainfo/org.kde.kupapplet.appdata.xml
 %{_datadir}/metainfo/org.kde.kup.appdata.xml
-%{_datadir}/plasma/services/kupservice.operations
+%{_kde5_datadir}/plasma/services/kupservice.operations
+%{_kde5_datadir}/plasma/services/kupdaemonservice.operations
 %{_datadir}/knotifications5/kupdaemon.notifyrc
+%{_datadir}/qlogging-categories5/kup.categories
 
 #----------------------------------------------------------------------------
 
