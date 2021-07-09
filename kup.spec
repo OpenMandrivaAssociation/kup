@@ -3,7 +3,7 @@
 
 Summary:	A KDE-based frontend for the very excellent backup software
 Name:		kup
-Version:	0.9.0
+Version:	0.9.1
 Release:	1
 License:	GPLv2+
 Group:		Archiving/Backup
@@ -76,7 +76,7 @@ Schedules:
 #----------------------------------------------------------------------------
 
 %prep
-%setup -qn %{name}-%{version}
+%autosetup -p1
 
 %build
 %cmake_kde5
