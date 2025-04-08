@@ -4,31 +4,32 @@
 Summary:	A KDE-based frontend for the very excellent backup software
 Name:		kup
 Version:	0.10.0
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Archiving/Backup
 # Also https://github.com/spersson/Kup
 Url:		https://invent.kde.org/system/kup
 Source0:	https://download.kde.org/stable/kup/%{name}-%{version}.tar.xz
-BuildRequires:	cmake
-BuildRequires:	cmake(Qt5Gui)
-BuildRequires:	cmake(Qt5Widgets)
-BuildRequires:	cmake(Qt5)
-BuildRequires:	cmake(KF5Solid)
-BuildRequires:	cmake(KF5KIO)
-BuildRequires:	cmake(KF5IdleTime)
-BuildRequires:	cmake(KF5I18n)
-BuildRequires:	cmake(KF5Notifications)
-BuildRequires:	cmake(KF5CoreAddons)
-BuildRequires:	cmake(KF5IconThemes)
-BuildRequires:	cmake(KF5DBusAddons)
-BuildRequires:	cmake(KF5Config)
-BuildRequires:	cmake(KF5Init)
-BuildRequires:	cmake(KF5JobWidgets)
+BuildSystem:	cmake
+BuildOption:	-DQT_MAJOR_VERSION=6
+BuildOption:	-DKDE_INSTALL_USE_QT_SYS_PATHS:BOOL=ON
+BuildRequires:	cmake(Qt6Gui)
+BuildRequires:	cmake(Qt6Widgets)
+BuildRequires:	cmake(Qt6)
+BuildRequires:	cmake(KF6Solid)
+BuildRequires:	cmake(KF6KIO)
+BuildRequires:	cmake(KF6IdleTime)
+BuildRequires:	cmake(KF6I18n)
+BuildRequires:	cmake(KF6Notifications)
+BuildRequires:	cmake(KF6CoreAddons)
+BuildRequires:	cmake(KF6IconThemes)
+BuildRequires:	cmake(KF6DBusAddons)
+BuildRequires:	cmake(KF6Config)
+BuildRequires:	cmake(KF6JobWidgets)
 BuildRequires:	cmake(ECM)
-BuildRequires:	cmake(KF5Plasma)
-BuildRequires:	cmake(KF5)
-BuildRequires: pkgconfig(libgit2)
+BuildRequires:	cmake(KF6)
+BuildRequires:	cmake(Plasma5Support)
+BuildRequires:	pkgconfig(libgit2)
 BuildRequires:	pkgconfig(openssl)
 Requires:	rsync
 Suggests:	bup
@@ -53,37 +54,19 @@ Schedules:
 
 %files -f %{name}.lang
 %doc MAINTAINER README.md
-%{_kde5_autostart}/kup-daemon.desktop
-%{_kde5_bindir}/kup-daemon
-%{_kde5_bindir}/kup-filedigger
-%{_kde5_bindir}/kup-purger
-%_qt5_plugindir/kcm_kup.so
-%_qt5_plugindir/kio_bup.so
-%_qt5_plugindir/plasma/dataengine/plasma_engine_kup.so
-%{_kde5_libdir}/libkdeinit5_kup-daemon.so
-%{_kde5_iconsdir}/hicolor/*/*/*
-%{_kde5_services}/bup.protocol
-%{_kde5_services}/kcm_kup.desktop
-%{_kde5_services}/plasma*.desktop
-%{_kde5_datadir}/plasma/plasmoids/org.kde.kupapplet
-%{_kde5_datadir}/metainfo/org.kde.kupapplet.appdata.xml
+%{_bindir}/kup-daemon
+%{_bindir}/kup-filedigger
+%{_bindir}/kup-purger
+%{_iconsdir}/hicolor/*/*/*
+%{_datadir}/plasma/plasmoids/org.kde.kupapplet
+%{_datadir}/metainfo/org.kde.kupapplet.appdata.xml
 %{_datadir}/metainfo/org.kde.kup.appdata.xml
-%{_kde5_datadir}/plasma/services/kupservice.operations
-%{_kde5_datadir}/plasma/services/kupdaemonservice.operations
-%{_datadir}/knotifications5/kupdaemon.notifyrc
-%{_datadir}/qlogging-categories5/kup.categories
-
-#----------------------------------------------------------------------------
-
-%prep
-%autosetup -p1
-
-%build
-%cmake_kde5
-%ninja
-
-%install
-%ninja_install -C build
-
-%find_lang %{name}
-
+%{_sysconfdir}/xdg/autostart/kup-daemon.desktop
+%{_datadir}/applications/kcm_kup.desktop
+%{_datadir}/knotifications6/kupdaemon.notifyrc
+%{_datadir}/plasma5support/services/kupdaemonservice.operations
+%{_datadir}/plasma5support/services/kupservice.operations
+%{_datadir}/qlogging-categories6/kup.categories
+%{_qtdir}/plugins/kf6/kio/kio_bup.so
+%{_qtdir}/plugins/plasma/kcms/systemsettings_qwidgets/kcm_kup.so
+%{_qtdir}/plugins/plasma5support/dataengine/plasma_engine_kup.so
