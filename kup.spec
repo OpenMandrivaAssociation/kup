@@ -31,6 +31,7 @@ BuildRequires:	cmake(KF6KCMUtils)
 BuildRequires:	cmake(ECM)
 BuildRequires:	cmake(KF6)
 BuildRequires:	cmake(Plasma5Support)
+BuildRequires:	cmake(PlasmaQuick)
 BuildRequires:	pkgconfig(libgit2)
 BuildRequires:	pkgconfig(openssl)
 Requires:	rsync
