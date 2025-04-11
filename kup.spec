@@ -4,7 +4,7 @@
 Summary:	A KDE-based frontend for the very excellent backup software
 Name:		kup
 Version:	0.10.0
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Archiving/Backup
 # Also https://github.com/spersson/Kup
@@ -35,7 +35,7 @@ BuildRequires:	cmake(PlasmaQuick)
 BuildRequires:	pkgconfig(libgit2)
 BuildRequires:	pkgconfig(openssl)
 Requires:	rsync
-Suggests:	bup
+Requires:	bup
 
 %description
 Kup is created for helping people to keep up-to-date backups of their personal
