@@ -1,45 +1,48 @@
-%define major 0
-%define libgit24kup %mklibname git24kup %{major}
+%define stable %([ "$(echo %{version} |cut -d. -f2)" -ge 80 -o "$(echo %{version} |cut -d. -f3)" -ge 80 ] && echo -n un; echo -n stable)
+%define plasmaver %(echo %{version} |cut -d. -f1-3)
+#define git 20240222
+%define gitbranch Plasma/6.0
+%define gitbranchd %(echo %{gitbranch} |sed -e "s,/,-,g")
 
-Summary:	A KDE-based frontend for the very excellent backup software
+Summary:	Backup scheduler for KDE Plasma
 Name:		kup
-Version:	0.10.0
-Release:	3
+Version:	6.8.3
+Release:	%{?git:0.%{git}.}1
 License:	GPLv2+
 Group:		Archiving/Backup
-# Also https://github.com/spersson/Kup
-Url:		https://invent.kde.org/system/kup
-Source0:	https://download.kde.org/stable/kup/%{name}-%{version}.tar.xz
+URL:		https://invent.kde.org/plasma/kup
+%if 0%{?git:1}
+Source0:	https://invent.kde.org/plasma/kup/-/archive/%{gitbranch}/kup-%{gitbranchd}.tar.bz2#/kup-%{git}.tar.bz2
+%else
+Source0:	http://download.kde.org/%{stable}/plasma/%{plasmaver}/kup-%{version}.tar.xz
+%endif
 BuildSystem:	cmake
-BuildOption:	-DQT_MAJOR_VERSION=6
 BuildOption:	-DKDE_INSTALL_USE_QT_SYS_PATHS:BOOL=ON
-BuildRequires:	cmake(Qt6Gui)
+BuildRequires:	cmake(ECM)
+BuildRequires:	cmake(Qt6Core)
 BuildRequires:	cmake(Qt6Widgets)
-BuildRequires:	cmake(Qt6)
 BuildRequires:	cmake(KF6Solid)
 BuildRequires:	cmake(KF6KIO)
 BuildRequires:	cmake(KF6IdleTime)
 BuildRequires:	cmake(KF6I18n)
 BuildRequires:	cmake(KF6Notifications)
 BuildRequires:	cmake(KF6CoreAddons)
-BuildRequires:	cmake(KF6IconThemes)
 BuildRequires:	cmake(KF6DBusAddons)
 BuildRequires:	cmake(KF6Config)
 BuildRequires:	cmake(KF6JobWidgets)
+BuildRequires:	cmake(KF6WidgetsAddons)
 BuildRequires:	cmake(KF6XmlGui)
 BuildRequires:	cmake(KF6KCMUtils)
-BuildRequires:	cmake(ECM)
-BuildRequires:	cmake(KF6)
-BuildRequires:	cmake(Plasma5Support)
-BuildRequires:	cmake(PlasmaQuick)
+BuildRequires:	cmake(KF6Crash)
+BuildRequires:	cmake(KF6WindowSystem)
+BuildRequires:	cmake(Plasma)
 BuildRequires:	pkgconfig(libgit2)
-BuildRequires:	pkgconfig(openssl)
 Requires:	rsync
 Requires:	bup
 
 %description
-Kup is created for helping people to keep up-to-date backups of their personal
-files.
+Kup keeps up-to-date backups of personal files. Plans are configured in
+System Settings, and a Plasma applet shows when a backup is due.
 
 Backup types:
  - Synchronized folders with the use of "rsync".
@@ -56,20 +59,19 @@ Schedules:
    for some hours since last backup).
 
 %files -f %{name}.lang
+%license LICENSES/*.txt
 %doc MAINTAINER README.md
 %{_bindir}/kup-daemon
 %{_bindir}/kup-filedigger
 %{_bindir}/kup-purger
-%{_iconsdir}/hicolor/*/*/*
-%{_datadir}/plasma/plasmoids/org.kde.kupapplet
-%{_datadir}/metainfo/org.kde.kupapplet.appdata.xml
+%{_iconsdir}/hicolor/scalable/apps/kup.svg
 %{_datadir}/metainfo/org.kde.kup.appdata.xml
 %{_sysconfdir}/xdg/autostart/kup-daemon.desktop
+%{_datadir}/applications/kup-daemon.desktop
 %{_datadir}/applications/kcm_kup.desktop
 %{_datadir}/knotifications6/kupdaemon.notifyrc
-%{_datadir}/plasma5support/services/kupdaemonservice.operations
-%{_datadir}/plasma5support/services/kupservice.operations
 %{_datadir}/qlogging-categories6/kup.categories
 %{_qtdir}/plugins/kf6/kio/kio_bup.so
+%{_qtdir}/plugins/kf6/kfileitemaction/kupfileitemaction.so
 %{_qtdir}/plugins/plasma/kcms/systemsettings_qwidgets/kcm_kup.so
-%{_qtdir}/plugins/plasma5support/dataengine/plasma_engine_kup.so
+%{_qtdir}/plugins/plasma/applets/org.kde.kupapplet.so
