@@ -35,7 +35,8 @@ BuildRequires:	cmake(KF6XmlGui)
 BuildRequires:	cmake(KF6KCMUtils)
 BuildRequires:	cmake(KF6Crash)
 BuildRequires:	cmake(KF6WindowSystem)
-BuildRequires:	cmake(Plasma)
+# KDELibs4Support provides an unversioned cmake(Plasma), which satisfies any version.
+BuildRequires:	cmake(PlasmaQuick) >= 6.8
 BuildRequires:	pkgconfig(libgit2)
 Requires:	rsync
 Requires:	bup
